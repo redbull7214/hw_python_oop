@@ -82,8 +82,8 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:
-        coef_1: int = 0.035
-        coef_2: int = 0.029
+        coef_1: float = 0.035
+        coef_2: float = 0.029
         spent_calories = ((coef_1 * self.weight + (self.get_mean_speed()
                           ** 2 // self.height) * coef_2 * self.weight)
                           * self.duration * self.mins_in_h)
@@ -111,8 +111,8 @@ class Swimming(Training):
         return mean_speed
 
     def get_spent_calories(self) -> float:
-        const_1 = 1.1
-        const_2 = 2
+        const_1: float = 1.1
+        const_2: int = 2
         spent_calories = ((self.get_mean_speed() + const_1)
                           * const_2 * self.weight)
         return spent_calories
