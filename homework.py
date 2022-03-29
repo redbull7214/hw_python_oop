@@ -1,25 +1,26 @@
+from dataclasses import dataclass
+from typing import List, Union
+
+
+@dataclass
 class InfoMessage:
     """Информационное сообщение о тренировке."""
-    def __init__(self,
-                 training_type: str,
-                 duration: float,
-                 distance: float,
-                 speed: float,
-                 calories: float
-                 ) -> None:
-        self.training_type = training_type
-        self.duration = duration
-        self.distance = distance
-        self.speed = speed
-        self.calories = calories
+    training_type: str
+    duration: float
+    distance: float
+    speed: float
+    calories: float
+    message: str = ('Тип тренировки: {0}; '
+                    'Длительность: {1:.3f} ч.; '
+                    'Дистанция: {2:.3f} км; '
+                    'Ср. скорость: {3:.3f} км/ч; '
+                    'Потрачено ккал: {4:.3f}.')
 
     def get_message(self) -> str:
-        message = (f'Тип тренировки: {self.training_type}; '
-                   f'Длительность: {"%.3f" %self.duration} ч.; '
-                   f'Дистанция: {"%.3f" %self.distance} км; '
-                   f'Ср. скорость: {"%.3f" %self.speed} км/ч; '
-                   f'Потрачено ккал: {"%.3f" %self.calories}.')
-        return message
+        returned_message = self.message.format(self.training_type,
+                                               self.duration, self.distance,
+                                               self.speed, self.calories)
+        return returned_message
 
 
 class Training:
@@ -118,7 +119,7 @@ class Swimming(Training):
         return spent_calories
 
 
-def read_package(workout_type: str, data: list) -> Training:
+def read_package(workout_type: str, data: List[Union[int, float]]) -> Training:
     """Прочитать данные полученные от датчиков."""
     types = {'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking}
     return types[workout_type](*data)
