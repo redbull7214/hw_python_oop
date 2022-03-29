@@ -121,7 +121,12 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: List[Union[int, float]]) -> Training:
     """Прочитать данные полученные от датчиков."""
-    types = {'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking}
+    # Дико извиняюсь, упорно смотрел в определение функции а не переменной
+    types: dict[str, type[Training]] = {
+        'SWM': Swimming,
+        'RUN': Running,
+        'WLK': SportsWalking
+    }
     return types[workout_type](*data)
 
 
